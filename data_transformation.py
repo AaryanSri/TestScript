@@ -11,7 +11,6 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 from sklearn.impute import SimpleImputer
-import mysql.connector
 from sqlalchemy import create_engine
 
 
