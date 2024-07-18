@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+import os
 from data_extraction import check_s3_bucket, download_s3_file, needs_update, update_info, run_sentiment_calculator, api_fetch_stock_data
 from data_transformation import clean_data, add_data, pca_analysis, connect_to_writer_db, write_to_db, connect_to_reader_db, read_from_db
+from io import BytesIO
 app = Flask(__name__)
 
 @app.route('/process', methods=['GET'])
@@ -46,8 +48,14 @@ def process_data():
         # Convert result to JSON serializable format if necessary
         # Assuming result is a DataFrame, convert it to JSON
         result_json = result.to_json(orient='records')
+        tempfile = os.path.join(f'{name}.json')
+        with open(tempfile, 'wb') as temp_file:
+            temp_file.write(result_json.encode('utf-8'))
+        
+        return send_file(tempfile, as_attachment=True, download_name=f'{name}.json', mimetype='application/json')
 
-        return jsonify({"status": "success", "result": result_json})
+    
+        
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
