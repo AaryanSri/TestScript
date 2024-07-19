@@ -8,6 +8,7 @@ import csv
 from stocksapi.stocksapi.spiders.Crawler import YahooCrawler, run_crawler
 from scrapy.crawler import CrawlerRunner
 from twisted.internet import reactor, defer
+from twisted.internet.task import react
 
 os.environ['AWS_ACCESS_KEY_ID'] = 'AKIA4HZZIVJW3PFTXNUC'
 os.environ['AWS_SECRET_ACCESS_KEY'] = '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'
@@ -103,7 +104,8 @@ def sentiment_calculator(name):
 def run_sentiment_calculator(name):
     d = sentiment_calculator(name)
     d.addBoth(lambda _: reactor.stop())
-    reactor.run()
+    #reactor.run()    
+
 
 #update_needed = needs_update('AAPL')
 #update_info(update_needed, 'AAPL')

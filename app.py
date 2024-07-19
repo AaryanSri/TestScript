@@ -52,10 +52,16 @@ def process_data():
         with open(tempfile, 'wb') as temp_file:
             temp_file.write(result_json.encode('utf-8'))
         
-        return send_file(tempfile, as_attachment=True, download_name=f'{name}.json', mimetype='application/json')
+        response = send_file(tempfile, as_attachment=True, download_name=f'{name}.json', mimetype='application/json')
+        @response.call_on_close
+        def cleanup():
+            try:
+                os.remove(tempfile)
+            except Exception as e:
+                print(f"Error cleaning up temporary files: {e}")
 
+        return response
     
-        
 
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
