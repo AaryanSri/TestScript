@@ -10,9 +10,6 @@ from scrapy.crawler import CrawlerRunner
 from twisted.internet import reactor, defer
 from twisted.internet.task import react
 
-os.environ['AWS_ACCESS_KEY_ID'] = 'AKIA4HZZIVJW3PFTXNUC'
-os.environ['AWS_SECRET_ACCESS_KEY'] = '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'
-os.environ['AWS_DEFAULT_REGION'] = 'us-east-2'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Define the stock ticker and date range
