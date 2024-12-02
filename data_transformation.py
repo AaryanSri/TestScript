@@ -87,7 +87,7 @@ def pca_analysis(df, variance_threshold=0.95):
 
 def connect_to_writer_db():
     engine = create_engine(
-        'mysql+pymysql://admin:admin123@database-1-instance-1.cz0w0eoc4lxl.us-east-2.rds.amazonaws.com/STOCK_DATA'
+        'aurora engine'
     )
     return engine
 
@@ -98,7 +98,7 @@ def write_to_db(df, table_name, engine):
 
 def connect_to_reader_db():
     engine = create_engine(
-        'mysql+pymysql://admin:admin123@database-1-instance-1.cz0w0eoc4lxl.us-east-2.rds.amazonaws.com/STOCK_DATA'
+        'aurora engine'
     )
     return engine
 
